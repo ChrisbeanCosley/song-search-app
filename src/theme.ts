@@ -15,11 +15,11 @@ export const theme = createTheme({
   Card: Card.extend({
     styles: {
       root: {
-        backgroundColor: '#89A3B6',
+        backgroundColor: '#243E51',
         color: 'white',
       },
       section: {
-        backgroundColor: '#89A3B6',
+        backgroundColor: '#243E51',
       },
     }
   }),

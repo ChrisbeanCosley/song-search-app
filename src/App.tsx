@@ -56,7 +56,6 @@ export default function App() {
   }, []);
 
   async function search() {
-    // console.log("Searching for:", searchInput);
     var searchParameters = {
       method: "GET",
       headers: {
@@ -108,8 +107,6 @@ export default function App() {
     setClickedAlbum(albumID);
   }
 
-  // console.log(albums);
-
   return (
     <AppShell header={{ height: 60 }} padding="md">
       <AppShell.Header h={"100px"}>
@@ -125,7 +122,7 @@ export default function App() {
               }
             }}
             rightSectionPointerEvents="all"
-            leftSection={<IconSearch size={16} />}
+            leftSection={<Image w="20px" src="/src/assets/search-icon.webp" />}
             rightSection={
               <CloseButton
                 onClick={() => handleClose()}
@@ -139,9 +136,8 @@ export default function App() {
 
       <AppShell.Main>
         {albums.length > 0 && (
-          <Grid bg={"#162733"} mt={"xl"} justify="left">
+          <Grid bg={"#090F14"} mt={"xl"} justify="left">
             {albums.map((album, i) => {
-              // console.log(album);
               return (
                 <Grid.Col key={album.id} span={4}>
                   <Card shadow="sm" radius="md" h={"100%"} key={i}>
@@ -166,7 +162,7 @@ export default function App() {
                           onClose={close}
                           title={`${album.name} Tracks`}
                         >
-                          <List m={"lg"}>
+                          <List>
                             {albumTracks.map((track) => {
                               return (
                                 <List.Item key={track.id}>
