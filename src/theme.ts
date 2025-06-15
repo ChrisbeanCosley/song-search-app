@@ -1,4 +1,4 @@
-import { createTheme, Input, colorsTuple, CloseButton } from '@mantine/core';
+import { createTheme, Input, colorsTuple, CloseButton, Button, Card, Modal } from '@mantine/core';
 
 export const theme = createTheme({
 
@@ -11,6 +11,38 @@ export const theme = createTheme({
     xxl: '120em'
   },
  components: {
+
+  Card: Card.extend({
+    styles: {
+      root: {
+        backgroundColor: '#89A3B6',
+        color: 'white',
+      },
+      section: {
+        backgroundColor: '#89A3B6',
+      },
+    }
+  }),
+
+  CloseButton: CloseButton.extend({
+    styles: {
+      root: {
+        color: 'white',
+        backgroundColor: 'var(--mantine-color-searchGrey-0)',
+    }}
+
+  }),
+
+  Button: Button.extend({
+    styles: {
+      root: {
+        color: 'white',
+        backgroundColor: 'var(--mantine-color-searchGrey-0)',
+        height: '50px',
+      }
+    }
+
+  }),
 
   Input: Input.extend({
     styles: {
@@ -26,18 +58,23 @@ export const theme = createTheme({
 
   }),
 
-  CloseButton: CloseButton.extend({
+  Modal: Modal.extend({
     styles: {
       root: {
+        bg: '#0D171E',
         color: 'white',
-        backgroundColor: 'var(--mantine-color-searchGrey-0)',
-    }}
-
+      },
+      body: {
+        backgroundColor: '#0D171E',
+      },
+      header: {
+        backgroundColor: '#0D171E',
+        color: 'white',
+      },
+    }
   }),
 
-
-
- },
+},
 
  colors: {
   searchGrey: colorsTuple('#243E51'),

@@ -1,36 +1,42 @@
 import "@mantine/core/styles.css";
 import {
   AppShell,
-  Burger,
   Button,
   Card,
-  Center,
   CloseButton,
   Grid,
   Group,
   Image,
+  List,
+  Modal,
   Text,
   Title,
 } from "@mantine/core";
-import { useDisclosure } from "@mantine/hooks";
 import "./global.css";
 import { Input } from "@mantine/core";
 import { useState, useEffect } from "react";
-import { IconSearch } from "@tabler/icons-react";
+import { useDisclosure } from "@mantine/hooks";
 
 const CLIENT_ID = "0982dc44ffdf4b95a3df245151f16360";
 const ClIENT_SECRET = "d39b260f1bad4a0496062d67f6f99a2a";
 
 export default function App() {
-  const [opened, { toggle }] = useDisclosure();
   const [searchInput, setSearchInput] = useState("");
   const [accessToken, setAccessToken] = useState("");
   const [albums, setAlbums] = useState([]);
+  const [albumTracks, setAlbumTracks] = useState([]);
+  const [clickedAlbum, setClickedAlbum] = useState(null);
+  const [opened, { open, close }] = useDisclosure(false);
 
   function handleClose() {
     setSearchInput("");
     setAlbums([]);
   }
+
+  const handleAlbumClick = async (albumID: string) => {
+    await getAlbumTracks(albumID);
+    open();
+  };
 
   useEffect(() => {
     var authParameters = {
@@ -50,11 +56,11 @@ export default function App() {
   }, []);
 
   async function search() {
-    console.log("Searching for:", searchInput);
+    // console.log("Searching for:", searchInput);
     var searchParameters = {
       method: "GET",
       headers: {
-        "Content-Type": "applocattion/json",
+        "Content-Type": "application/json",
         Authorization: "Bearer " + accessToken,
       },
     };
@@ -76,12 +82,33 @@ export default function App() {
     )
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
+        console.log(data.items);
         setAlbums(data.items);
       });
   }
 
-  console.log(albums);
+  async function getAlbumTracks(albumID: string) {
+    var searchParameters = {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + accessToken,
+      },
+    };
+    var albumTracks = await fetch(
+      "https://api.spotify.com/v1/albums/" + albumID + "/tracks",
+      searchParameters
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data.items);
+        setAlbumTracks(data.items);
+      });
+
+    setClickedAlbum(albumID);
+  }
+
+  // console.log(albums);
 
   return (
     <AppShell header={{ height: 60 }} padding="md">
@@ -101,7 +128,6 @@ export default function App() {
             leftSection={<IconSearch size={16} />}
             rightSection={
               <CloseButton
-                aria-label="Search for artist"
                 onClick={() => handleClose()}
                 style={{ display: searchInput ? undefined : "none" }}
               />
@@ -115,17 +141,42 @@ export default function App() {
         {albums.length > 0 && (
           <Grid bg={"#162733"} mt={"xl"} justify="left">
             {albums.map((album, i) => {
-              console.log(album);
+              // console.log(album);
               return (
-                <Grid.Col span={4}>
+                <Grid.Col key={album.id} span={4}>
                   <Card shadow="sm" radius="md" h={"100%"} key={i}>
-                    <Card.Section>
+                    <Card.Section bg={"none"}>
                       <Image src={album.images[0].url} />
                     </Card.Section>
                     <Card.Section>
                       <Title m={"lg"} order={4}>
                         {album.name}
                       </Title>
+                      <Button
+                        m={"lg"}
+                        onClick={() => {
+                          handleAlbumClick(album.id);
+                        }}
+                      >
+                        Show Album Tracks
+                      </Button>
+                      {albumTracks.length > 0 && clickedAlbum === album.id && (
+                        <Modal
+                          opened={opened}
+                          onClose={close}
+                          title={`${album.name} Tracks`}
+                        >
+                          <List m={"lg"}>
+                            {albumTracks.map((track) => {
+                              return (
+                                <List.Item key={track.id}>
+                                  {track.name}
+                                </List.Item>
+                              );
+                            })}
+                          </List>
+                        </Modal>
+                      )}
                     </Card.Section>
                   </Card>
                 </Grid.Col>
@@ -134,9 +185,9 @@ export default function App() {
           </Grid>
         )}
         {albums.length === 0 && (
-          <Group justify="center" align="center" h={"100vh"}>
+          <Group justify="center" align="center" h={"60vh"}>
             <Text mt={"lg"} size="xl" color="dimmed">
-              Search for an artist to see all of their albums on Spotify
+              Search for an artist to see their albums on Spotify
             </Text>
           </Group>
         )}
