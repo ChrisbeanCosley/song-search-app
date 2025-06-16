@@ -20,7 +20,7 @@ export default function App() {
             <Image
               src="/src/assets/spotify-logo.svg"
               alt="Spotify Logo"
-              w={"50%"}
+              w={"30%"}
             />
             <Text mt={"lg"} size="xl" color="dimmed">
               Search for an artist to see their albums on Spotify
