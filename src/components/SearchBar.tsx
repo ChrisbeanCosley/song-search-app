@@ -43,9 +43,7 @@ const SearchBar = () => {
           }
         }}
         rightSectionPointerEvents="all"
-        leftSection={
-          <Image w="20px" src="/song-search-app/assets/search-icon.webp" />
-        }
+        leftSection={<Image w="20px" src="/song-search-app/search-icon.webp" />}
         rightSection={
           <CloseButton
             onClick={() => handleClose()}
