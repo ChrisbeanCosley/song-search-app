@@ -18,7 +18,7 @@ export default function App() {
         {albums.length === 0 && (
           <Stack align="center" h={"60vh"} mt={"200px"}>
             <Image
-              src="/src/assets/spotify-logo.svg"
+              src="/song-search-app/assets/spotify-logo.svg"
               alt="Spotify Logo"
               w={"30%"}
             />
