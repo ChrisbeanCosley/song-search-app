@@ -37,9 +37,10 @@ export const theme = createTheme({
     styles: {
       root: {
         color: 'white',
-        backgroundColor: 'var(--mantine-color-searchGrey-0)',
+        backgroundColor: '#FF7F00',
         height: '50px',
-      }
+        borderColor: 'white',
+      },
     }
 
   }),
@@ -52,6 +53,7 @@ export const theme = createTheme({
         borderColor: '#F0F0F3',
         background: 'var(--mantine-color-searchGrey-0)',
         height: '50px',
+        outline: 'green'
       },
 
     }
@@ -79,5 +81,13 @@ export const theme = createTheme({
  colors: {
   searchGrey: colorsTuple('#243E51'),
  },
+
+
+
+ 
+ other: {
+  modalGradient: 'linear-gradient(90deg, hsla(204, 25%, 71%, 1) 0%, hsla(205, 39%, 17%, 1) 100%)',
+  greenGradient: 'linear-gradient(90deg, rgba(28,193,161,1) 2%, rgba(32,92,81,1) 100%)',
+},
 
 });
