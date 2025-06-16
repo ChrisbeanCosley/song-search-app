@@ -2,6 +2,7 @@ import { Grid, Card, Image, Title, Button, Modal, List } from "@mantine/core";
 import { useGlobalState } from "../global-state/GlobalStateContext";
 import { getAccessToken, getAlbumTracks } from "../services/api-client";
 import { useDisclosure } from "@mantine/hooks";
+import { useEffect } from "react";
 
 const AlbumCard = () => {
   const {
@@ -15,6 +16,12 @@ const AlbumCard = () => {
   } = useGlobalState();
 
   const [opened, { open, close }] = useDisclosure(false);
+
+  useEffect(() => {
+    if (!accessToken) {
+      fetchAndStoreAccessToken();
+    }
+  }, [accessToken]);
 
   async function fetchAndStoreAccessToken() {
     const token = await getAccessToken();

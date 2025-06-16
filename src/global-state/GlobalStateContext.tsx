@@ -1,14 +1,16 @@
 import { createContext, useContext, useState } from "react";
+import type { Album } from "../types/album";
+import type { AlbumTracks } from "../types/albumTracks";
 
 type GlobalStateType = {
   searchInput: string;
   setSearchInput: (input: string) => void;
   accessToken: string;
   setAccessToken: (token: string) => void;
-  albums: any[];
-  setAlbums: (albums: any[]) => void;
-  albumTracks: any[];
-  setAlbumTracks: (tracks: any[]) => void;
+  albums: Album[];
+  setAlbums: (albums: Album[]) => void;
+  albumTracks: AlbumTracks[];
+  setAlbumTracks: (tracks: AlbumTracks[]) => void;
   clickedAlbum: string | null;
   setClickedAlbum: (albumID: string | null) => void;
 };
@@ -22,8 +24,8 @@ export const GlobalStateProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [searchInput, setSearchInput] = useState("");
   const [accessToken, setAccessToken] = useState("");
-  const [albums, setAlbums] = useState<any[]>([]);
-  const [albumTracks, setAlbumTracks] = useState<any[]>([]);
+  const [albums, setAlbums] = useState<Album[]>([]);
+  const [albumTracks, setAlbumTracks] = useState<AlbumTracks[]>([]);
   const [clickedAlbum, setClickedAlbum] = useState<string | null>(null);
 
   return (
