@@ -3,12 +3,12 @@ import { createTheme, Input, colorsTuple, CloseButton, Button, Card, Modal } fro
 export const theme = createTheme({
 
   breakpoints: {
-    xs: '30em',
-    sm: '48em',
-    md: '64em',
-    lg: '74em',
-    xl: '90em',
-    xxl: '120em'
+    xs: '320px',
+    sm: '425px',
+    md: '768px',
+    lg: '1024px',
+    xl: '1440px',
+    xxl: '2560px'
   },
  components: {
 

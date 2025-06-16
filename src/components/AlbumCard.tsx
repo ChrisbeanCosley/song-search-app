@@ -33,7 +33,10 @@ const AlbumCard = () => {
         <Grid bg={"#090F14"} mt={"xl"} justify="left">
           {albums.map((album, i) => {
             return (
-              <Grid.Col key={album.id} span={3}>
+              <Grid.Col
+                key={album.id}
+                span={{ xxl: 2, xl: 3, lg: 4, md: 6, sm: 12 }}
+              >
                 <Card
                   shadow="sm"
                   radius="md"

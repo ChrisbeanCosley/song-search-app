@@ -1,5 +1,5 @@
-const CLIENT_ID = "0982dc44ffdf4b95a3df245151f16360";
-const CLIENT_SECRET = "d39b260f1bad4a0496062d67f6f99a2a";
+const clientId = import.meta.env.VITE_CLIENT_ID;
+const clientSecret = import.meta.env.VITE_CLIENT_SECRET;
 
 export async function getAccessToken() {
   const authParameters = {
@@ -9,9 +9,9 @@ export async function getAccessToken() {
     },
     body:
       "grant_type=client_credentials&client_id=" +
-      CLIENT_ID +
+      clientId +
       "&client_secret=" +
-      CLIENT_SECRET,
+      clientSecret,
   };
   const result = await fetch(
     "https://accounts.spotify.com/api/token",
